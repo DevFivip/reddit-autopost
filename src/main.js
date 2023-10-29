@@ -10,6 +10,10 @@
 
 const express = require('express');
 const app = express();
+const routes = require('./routes');
+//var routes = require('./routes') --> this works 
+// ...
+app.use('/', routes);
 const port = 3000;
 
 // Configura EJS como motor de plantillas
@@ -17,12 +21,12 @@ app.set('view engine', 'ejs');
 
 app.set('views', __dirname + '/views');
 
-// Ruta de inicio
-app.get('/', (req, res) => {
-  res.render('index', { mensaje: '¡Hola, EJS!' });
-});
+// // Ruta de inicio
+// app.get('/', (req, res) => {
+//     res.render('index', { mensaje: '¡Hola, EJS asds!' });
+// });
 
 // Inicia el servidor
 app.listen(port, () => {
-  console.log(`Servidor Express escuchando en el puerto ${port}`);
+    console.log(`Servidor Express escuchando en el puerto ${port}`);
 });
