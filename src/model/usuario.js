@@ -26,6 +26,22 @@ module.exports = {
             });
         })
     },
+    update(data, usuario_id) {
+        const { nombre, reddit_name, reddit_password } = data;
+        console.log({ data })
+        return new Promise((suc, rej) => {
+            db.serialize(function () {
+                try {
+                    const stmt = db.prepare(`UPDATE usuarios set nombre= ?, reddit_name= ?, reddit_password=? where id = ?`);
+                    stmt.run(nombre, reddit_name, reddit_password, usuario_id);
+                    stmt.finalize();
+                    suc(data);
+                } catch (error) {
+                    rej(error)
+                }
+            });
+        })
+    },
     find(id) {
         return new Promise((suc, rej) => {
             db.all(`SELECT * from usuarios where id = ${id}`, function (err, rows) {

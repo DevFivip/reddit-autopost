@@ -16,6 +16,12 @@ module.exports = {
         const { usuario_id } = req.params;
         const user = await usuario.find(usuario_id);
         console.log(user)
-        res.render("usuarios/show",{user});
+        res.render("usuarios/show", { user });
+    },
+    async update(req, res) {
+        console.log(req.body)
+        const { usuario_id } = req.params
+        await usuario.update(req.body, usuario_id);
+        res.redirect('/usuarios');
     },
 };

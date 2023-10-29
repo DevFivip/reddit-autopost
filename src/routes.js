@@ -18,5 +18,8 @@ router.post('/usuarios', (req, res) => {
 router.get('/usuarios/:usuario_id', (req, res) => {
     UsuarioController.show(req, res);
 });
+router.post('/usuarios/:usuario_id', (req, res) => {
+    UsuarioController.update(req, res);
+});
 
 module.exports = router; // You export the intance
