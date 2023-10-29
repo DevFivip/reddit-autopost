@@ -11,8 +11,7 @@
 const express = require('express');
 const app = express();
 const routes = require('./routes');
-//var routes = require('./routes') --> this works 
-// ...
+
 app.use('/', routes);
 const port = 3000;
 
