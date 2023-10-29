@@ -6,11 +6,7 @@ module.exports = {
                 if (err) {
                     rej(err.message)
                 } else {
-
                     suc(rows)
-                    // rows.forEach(row => {
-                    //     console.log(row)
-                    // });
                 }
             });
         })
