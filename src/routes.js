@@ -9,5 +9,14 @@ router.get('/', (req, res) => {
 router.get('/usuarios', (req, res) => {
     UsuarioController.index(req, res);
 });
+router.get('/usuarios/create', (req, res) => {
+    UsuarioController.create(req, res);
+});
+router.post('/usuarios', (req, res) => {
+    UsuarioController.store(req, res);
+});
+router.get('/usuarios/:usuario_id', (req, res) => {
+    UsuarioController.show(req, res);
+});
 
 module.exports = router; // You export the intance

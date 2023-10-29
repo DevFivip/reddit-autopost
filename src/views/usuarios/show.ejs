@@ -1,0 +1,27 @@
+<%- include('../layouts/start.ejs',{title:"Personas"}) %>
+
+<div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+  <div class="text-xl font-semibold inline-block">Actualizar Persona</div>
+  <div class="divider mt-2"></div>
+  <div class="h-full w-full pb-6 bg-base-100">
+    <div class="overflow-x-auto w-full">
+      <!-- contenido -->
+      <form action="/usuarios/<%= user.id%>" method="post">
+        <div class="form-control w-full mt-4">
+          <label class="label"><span class="label-text text-base-content">Nombre Completo</span></label><input type="text" name="nombre" placeholder="" class="input input-bordered w-full" value="<%= user.nombre%>" />
+        </div>
+        <div class="form-control w-full mt-4">
+          <label class="label"><span class="label-text text-base-content">Reddit Usuario</span></label><input type="text" name="reddit_name" placeholder="" class="input input-bordered w-full" value="<%= user.reddit_name%>" />
+        </div>
+        <div class="form-control w-full mt-4">
+          <label class="label"><span class="label-text text-base-content">Reddit Password</span></label><input type="text" name="reddit_password" placeholder="" class="input input-bordered w-full" value="<%= user.reddit_password%>" />
+        </div>
+        <p class="text-center text-error mt-16"></p>
+        <button type="submit" class="btn btn-primary px-6">Update</button>
+        <!-- contenido -->
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../layouts/end.ejs') %>
