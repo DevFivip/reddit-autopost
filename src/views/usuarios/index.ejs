@@ -31,14 +31,18 @@
             <td><%= usuario.reddit_name %></td>
             <td><%= usuario.reddit_password %></td>
             <td>
-              <%- usuario.status == 1 ? '<div class="badge badge-primary">Activo</div>' : '<div class="badge badge">Desactivado</div>' %>
+              <%- usuario.status == 1 ? '<div class="badge badge-primary">Activo</div>':'<div class="badge badge">Desactivado</div>' %>
             </td>
             <td>
               <a href="/usuarios/<%= usuario.id %>" class="btn btn-square btn-ghost">
                 <i class="fa fa-edit"></i>
               </a>
-              <a class="btn btn-square btn-ghost">
+              <button onclick="remove(<%= usuario.id %>)" class="btn btn-square btn-ghost">
                 <i class="fa fa-trash"></i>
+              </button>
+
+              <a href="/usuarios/status/<%= usuario.id %>" class="btn btn-square btn-ghost">
+                <%- usuario.status == 1 ? '<i class="fa fa-circle"></i>':'<i class="fa fa-circle-check"></i>' %>
               </a>
             </td>
           </tr>
@@ -48,5 +52,14 @@
     </div>
   </div>
 </div>
-
+<script>
+  async  function remove(id) {
+   st = confirm('Seguro de eliminar este registro?');
+   if(st){
+    console.log(id)
+    await fetch(`/usuarios/${id}`, { method: 'DELETE' });
+    location.reload()
+   }
+  }
+</script>
 <%- include('../layouts/end.ejs') %>

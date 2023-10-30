@@ -21,5 +21,11 @@ router.get('/usuarios/:usuario_id', (req, res) => {
 router.post('/usuarios/:usuario_id', (req, res) => {
     UsuarioController.update(req, res);
 });
+router.get('/usuarios/status/:usuario_id', (req, res) => {
+    UsuarioController.status(req, res);
+});
+router.delete('/usuarios/:usuario_id', (req, res) => {
+    UsuarioController.remove(req, res);
+});
 
 module.exports = router; // You export the intance

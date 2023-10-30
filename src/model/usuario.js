@@ -28,7 +28,6 @@ module.exports = {
     },
     update(data, usuario_id) {
         const { nombre, reddit_name, reddit_password } = data;
-        console.log({ data })
         return new Promise((suc, rej) => {
             db.serialize(function () {
                 try {
@@ -52,5 +51,33 @@ module.exports = {
                 }
             });
         })
-    }
+    },
+    remove(id) {
+        return new Promise((suc, rej) => {
+            db.serialize(function () {
+                try {
+                    const stmt = db.prepare(`DELETE from usuarios where id = ?`);
+                    stmt.run(id);
+                    stmt.finalize();
+                    suc(true);
+                } catch (error) {
+                    rej(error)
+                }
+            });
+        })
+    },
+    status(id, status) {
+        return new Promise((suc, rej) => {
+            db.serialize(function () {
+                try {
+                    const stmt = db.prepare(`UPDATE usuarios set status=? where id = ?`);
+                    stmt.run(!status, id);
+                    stmt.finalize();
+                    suc(id);
+                } catch (error) {
+                    rej(error)
+                }
+            });
+        })
+    },
 }
