@@ -28,6 +28,15 @@ db.serialize(function () {
         status INT,
         FOREIGN KEY(usuario_id) REFERENCES usuarios(id))`);
 });
+db.serialize(function () {
+    db.run(`CREATE TABLE  IF NOT EXISTS galery (
+        id INTEGER PRIMARY KEY,
+        titulo TEXT,
+        descripcion TEXT,
+        archivo_nombre TEXT NOT NULL,
+        fecha_subida DATETIME DEFAULT CURRENT_TIMESTAMP
+    );`);
+});
 
 // Cierra la conexión a la base de datos al final
 
