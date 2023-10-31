@@ -31,8 +31,7 @@ db.serialize(function () {
 db.serialize(function () {
     db.run(`CREATE TABLE  IF NOT EXISTS gallery (
         id INTEGER PRIMARY KEY,
-        titulo TEXT,
-        descripcion TEXT,
+        tags TEXT,
         archivo_nombre TEXT NOT NULL,
         fecha_subida DATETIME DEFAULT CURRENT_TIMESTAMP
     );`);

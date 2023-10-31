@@ -9,6 +9,9 @@ module.exports = {
         res.render("gallery/create");
     },
     async store(req, res) {
-        res.send('Almacenados correctamente');
+        const newFileNames = req.files.map(file => file.filename);
+        console.log(newFileNames);
+        await gallery.createMany(newFileNames);
+        res.redirect('/gallery');
     }
 };
