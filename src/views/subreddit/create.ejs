@@ -1,0 +1,27 @@
+<%- include('../layouts/start.ejs',{title:"Subreddits"}) %>
+
+<div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+  <div class="text-xl font-semibold inline-block">Crear Subreddits</div>
+  <div class="divider mt-2"></div>
+  <div class="h-full w-full pb-6 bg-base-100">
+    <div class="overflow-x-auto w-full">
+      <!-- contenido -->
+      <form action="/subreddit" method="post">
+      <div class="form-control w-full mt-4">
+        <label class="label"><span class="label-text text-base-content">Nombre Subreddit</span></label><input type="text" name="nombre" placeholder="" class="input input-bordered w-full" value="" />
+      </div>
+      <div class="form-control w-full mt-4">
+        <label class="label"><span class="label-text text-base-content">Etiquetas (separados por comas ",") </span></label><input type="text" name="tags" placeholder="" class="input input-bordered w-full" value="" />
+      </div>
+      <div class="form-control w-full mt-4">
+        <label class="label"><span class="label-text text-base-content">Requiere Verificación</span></label> <input type="checkbox" name="verificacion" id="verificacion" class="checkbox checkbox-primary">
+      </div>
+      <p class="text-center text-error mt-16"></p>
+      <button type="submit" class="btn btn-primary px-6">Save</button>
+      <!-- contenido -->
+    </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../layouts/end.ejs') %>

@@ -28,11 +28,23 @@ db.serialize(function () {
         status INT,
         FOREIGN KEY(usuario_id) REFERENCES usuarios(id))`);
 });
+
 db.serialize(function () {
     db.run(`CREATE TABLE  IF NOT EXISTS gallery (
         id INTEGER PRIMARY KEY,
         tags TEXT,
         archivo_nombre TEXT NOT NULL,
+        fecha_subida DATETIME DEFAULT CURRENT_TIMESTAMP
+    );`);
+});
+
+db.serialize(function () {
+    db.run(`CREATE TABLE  IF NOT EXISTS subreddit (
+        id INTEGER PRIMARY KEY,
+        nombre TEXT NOT NULL,
+        verificacion INTEGER,
+        tags TEXT,
+        status INTEGER,
         fecha_subida DATETIME DEFAULT CURRENT_TIMESTAMP
     );`);
 });

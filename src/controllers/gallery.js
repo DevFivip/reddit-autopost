@@ -12,19 +12,19 @@ module.exports = {
     },
     async store(req, res) {
         const newFileNames = req.files.map(file => file.filename);
-        console.log(newFileNames);
+
         await gallery.createMany(newFileNames);
         res.redirect('/gallery');
     },
     async show(req, res) {
         const { imagen_id } = req.params;
         const imagen = await gallery.findOne(imagen_id);
-        console.log(imagen)
+
         res.render("gallery/show", { imagen });
     },
     async update(req, res) {
         const { imagen_id } = req.params;
-        console.log(req.body,imagen_id)
+
         await gallery.update(req.body, imagen_id);
         res.redirect('/gallery');
     },

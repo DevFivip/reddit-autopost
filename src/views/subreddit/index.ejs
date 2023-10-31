@@ -1,0 +1,78 @@
+<%- include('../layouts/start.ejs',{title:"Subreddits"}) %>
+
+<div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+  <div class="text-xl font-semibold inline-block">
+    Listado de Subreddits
+    <div class="inline-block float-right">
+      <div class="inline-block float-right">
+        <a href="/subreddit/create" class="btn px-6 btn-sm normal-case btn-primary">
+          Crear Nuevo
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="divider mt-2"></div>
+  <div class="h-full w-full pb-6 bg-base-100">
+    <div class="overflow-x-auto w-full">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% subreddits.forEach(function(subreddit) { %>
+          <tr>
+            <td><%= subreddit.nombre %></td>
+            <td>
+              <%- subreddit.verificacion == 1 ? '<div class="badge badge-primary"><i class="fa-regular fa-circle-check"></i>&nbsp; Requiere verificacion</div>':'<div class="badge badge-ghost"><i class="fa-regular fa-circle-xmark"></i>&nbsp;No Requiere Verificación</div>' %>
+              <%- subreddit.status == 1 ? '<div class="badge badge-primary">Activo</div>':'<div class="badge badge">Desactivado</div>' %>
+            </td>
+            <td>
+
+              <% var data = subreddit.tags; %>
+              <% var dataArray = data?.split(','); %>
+
+              <div style="display: block;" class="mt-3">
+                <% dataArray?.forEach(function(element) { %>
+                <div class="badge badge-neutral"><%= element %></div>
+                <% }); %>
+              </div>
+
+
+            </td>
+            <td>
+              <a href="/subreddit/<%= subreddit.id %>" class="btn btn-square btn-ghost">
+                <i class="fa fa-edit"></i>
+              </a>
+              <button onclick="remove(<%= subreddit.id %>)" class="btn btn-square btn-ghost">
+                <i class="fa fa-trash"></i>
+              </button>
+
+              <a href="/subreddit/status/<%= subreddit.id %>" class="btn btn-square btn-ghost">
+                <%- subreddit.status == 1 ? '<i class="fa fa-circle"></i>':'<i class="fa fa-circle-check"></i>' %>
+              </a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  async function remove(id) {
+    st = confirm('Seguro de eliminar este registro?');
+    if (st) {
+      console.log(id)
+      await fetch(`/subreddit/${id}`, {
+        method: 'DELETE'
+      });
+      location.reload()
+    }
+  }
+</script>
+<%- include('../layouts/end.ejs') %>
