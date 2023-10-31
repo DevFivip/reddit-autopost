@@ -31,7 +31,7 @@
 
         <div class="card-actions justify-end mt-2">
           <a href="/gallery/<%=image.id%>" class="btn btn-neutral"><i class="fa fa-edit"></i></a>
-          <button class="btn btn-neutral"><i class="fa fa-trash"></i></button>
+          <button class="btn btn-neutral" onclick="remove(<%=image.id%>)"><i class="fa fa-trash"></i></button>
         </div>
       </div>
     </div>
@@ -40,10 +40,10 @@
 </div>
 <script>
   async function remove(id) {
-    st = confirm("Seguro de eliminar este registro?");
+    st = confirm("Seguro de eliminar este archivo?");
     if (st) {
       console.log(id);
-      await fetch(`/usuarios/${id}`, {
+      await fetch(`/gallery/${id}`, {
         method: "DELETE",
       });
       location.reload();

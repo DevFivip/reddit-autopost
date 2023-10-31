@@ -19,11 +19,7 @@
     }
   }
 </style>
-<form
-  action="/gallery/<%imagen.id%>"
-  method="post"
-  enctype="multipart/form-data"
->
+<form action="/gallery/<%imagen.id%>" method="post" enctype="multipart/form-data">
   <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
     <div class="text-xl font-semibold inline-block">
       Fotos y Videos
@@ -38,34 +34,37 @@
     <div class="divider mt-2"></div>
 
     <label for="etiquetas">Etiquetas (separar por comas ",")</label>
-    <input
-      type="text"
-      id="etiquetas"
-      name="etiquetas"
-      class="input input-bordered w-full"
-    />
+    <input type="text" id="etiquetas" name="etiquetas" class="input input-bordered w-full" />
 
     <div class="divider mt-2"></div>
     <figure>
-      <img
-        style="height: 600px; width: auto; border-radius: 8px"
-        src="/files/<%=imagen.archivo_nombre%>"
-        alt="<%=imagen.archivo_nombre%>"
-      />
+      <img style="height: 600px; width: auto; border-radius: 8px" src="/files/<%=imagen.archivo_nombre%>" alt="<%=imagen.archivo_nombre%>" />
     </figure>
     <div class="divider mt-2"></div>
     <div class="inline-block float-right">
-      <button type="button" class="btn px-6 btn-sm normal-case btn-error mt-4">
+      <button type="button" onclick="remove()" class="btn px-6 btn-sm normal-case btn-error mt-4">
         Eliminar
       </button>
-      <button
-        type="submit"
-        class="btn px-6 btn-sm normal-case btn-primary mt-4"
-      >
+      <button type="submit" class="btn px-6 btn-sm normal-case btn-primary mt-4">
         Guardar
       </button>
     </div>
   </div>
 </form>
+<script>
+  let id = "<%=imagen.id%>";
+  async function remove() {
+    const st = confirm("Seguro de eliminar este archivo?");
+    if (st) {
+      const res = await fetch(`/gallery/${id}`, {
+        method: "DELETE",
+      });
+      // location.href('')
+      // window.location = "/gallery";
 
+    }
+
+    window.location.href = '/gallery';
+  }
+</script>
 <%- include('../layouts/end.ejs') %>

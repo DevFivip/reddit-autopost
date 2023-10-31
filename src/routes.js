@@ -54,6 +54,9 @@ router.post('/gallery', upload.array('fileInput'), (req, res) => {
 router.get('/gallery/:imagen_id', (req, res) => {
     GalleryController.show(req, res);
 });
+router.delete('/gallery/:imagen_id', (req, res) => {
+    GalleryController.delete(req, res);
+});
 
 
 

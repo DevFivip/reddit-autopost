@@ -40,5 +40,19 @@ module.exports = {
             });
         })
     },
+    delete(imagen_id) {
+        return new Promise((suc, rej) => {
+            db.serialize(function () {
+                try {
+                    const stmt = db.prepare(`DELETE from gallery where id = ?`);
+                    stmt.run(imagen_id);
+                    stmt.finalize();
+                    suc(true);
+                } catch (error) {
+                    rej(error)
+                }
+            });
+        })
+    },
     
 }
