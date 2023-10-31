@@ -4,7 +4,7 @@ const date = require('../util/date');
 module.exports = {
     all() {
         return new Promise((suc, rej) => {
-            db.all('SELECT * from gallery', function (err, rows) {
+            db.all('SELECT * from gallery order by id DESC', function (err, rows) {
                 if (err) {
                     rej(err.message)
                 } else {
