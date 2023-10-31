@@ -29,9 +29,24 @@ module.exports = {
 
         })
     },
+    update(data, imagen_id) {
+        const { etiquetas } = data;
+        return new Promise((suc, rej) => {
+            db.serialize(function () {
+                try {
+                    const stmt = db.prepare(`UPDATE gallery set tags= ? where id = ?`);
+                    stmt.run(etiquetas, imagen_id);
+                    stmt.finalize();
+                    suc(data);
+                } catch (error) {
+                    rej(error)
+                }
+            });
+        })
+    },
     findOne(imagen_id) {
         return new Promise((suc, rej) => {
-            db.all('SELECT * from gallery where id = '+ imagen_id, function (err, rows) {
+            db.all('SELECT * from gallery where id = ' + imagen_id, function (err, rows) {
                 if (err) {
                     rej(err.message)
                 } else {
@@ -54,5 +69,5 @@ module.exports = {
             });
         })
     },
-    
+
 }

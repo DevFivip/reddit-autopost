@@ -22,6 +22,12 @@ module.exports = {
         console.log(imagen)
         res.render("gallery/show", { imagen });
     },
+    async update(req, res) {
+        const { imagen_id } = req.params;
+        console.log(req.body,imagen_id)
+        await gallery.update(req.body, imagen_id);
+        res.redirect('/gallery');
+    },
     async delete(req, res) {
         const { imagen_id } = req.params;
         const imagen = await gallery.findOne(imagen_id);

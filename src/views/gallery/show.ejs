@@ -1,25 +1,6 @@
 <%- include('../layouts/start.ejs',{title:"Gallery"}) %>
 
-<style>
-  /* bright / dark mode */
-  .pintura-editor {
-    --color-background: 66, 255, 255;
-    --color-foreground: 00, 10, 10;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    html {
-      color: #fff;
-      background: #111;
-    }
-
-    .pintura-editor {
-      --color-background: 0, 10, 10;
-      --color-foreground: 0, 255, 255;
-    }
-  }
-</style>
-<form action="/gallery/<%imagen.id%>" method="post" enctype="multipart/form-data">
+<form action="/gallery/update/<%=imagen.id%>" method="post" enctype="form-data">
   <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
     <div class="text-xl font-semibold inline-block">
       Fotos y Videos
@@ -34,7 +15,7 @@
     <div class="divider mt-2"></div>
 
     <label for="etiquetas">Etiquetas (separar por comas ",")</label>
-    <input type="text" id="etiquetas" name="etiquetas" class="input input-bordered w-full" />
+    <input type="text" id="etiquetas" name="etiquetas" value="<%=imagen.tags%>" class="input input-bordered w-full" />
 
     <div class="divider mt-2"></div>
     <figure>

@@ -21,12 +21,13 @@
       </figure>
       <div class="card-body p-2">
 
+        <% var data = image.tags; %>
+        <% var dataArray = data?.split(','); %>
+
         <div id="show_<%=image.id%>" style="display: block;" class="mt-3">
-          <div class="badge badge-neutral">neutral</div>
-          <div class="badge badge-primary">primary</div>
-          <div class="badge badge-secondary">secondary</div>
-          <div class="badge badge-accent">accent</div>
-          <div class="badge badge-ghost">ghost</div>
+          <% dataArray?.forEach(function(element) { %>
+          <div class="badge badge-neutral"><%= element %></div>
+          <% }); %>
         </div>
 
         <div class="card-actions justify-end mt-2">
