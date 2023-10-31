@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router(); // new instance of Router
 const UsuarioController = require('./controllers/usuario')
-const GaleryController = require('./controllers/galery')
+const GalleryController = require('./controllers/gallery')
 /* GET home page */
 router.get('/', (req, res) => {
     res.render('index', { mensaje: '¡Hola, EJS!' });
@@ -29,8 +29,8 @@ router.delete('/usuarios/:usuario_id', (req, res) => {
     UsuarioController.remove(req, res);
 });
 
-router.get('/galery', (req, res) => {
-    GaleryController.remove(req, res);
+router.get('/gallery', (req, res) => {
+    GalleryController.index(req, res);
 });
 
 

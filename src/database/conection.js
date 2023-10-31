@@ -29,7 +29,7 @@ db.serialize(function () {
         FOREIGN KEY(usuario_id) REFERENCES usuarios(id))`);
 });
 db.serialize(function () {
-    db.run(`CREATE TABLE  IF NOT EXISTS galery (
+    db.run(`CREATE TABLE  IF NOT EXISTS gallery (
         id INTEGER PRIMARY KEY,
         titulo TEXT,
         descripcion TEXT,

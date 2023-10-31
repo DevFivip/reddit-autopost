@@ -21,6 +21,7 @@ const fs = require('fs');
     // Localiza el campo de entrada por su atributo "name"
     const inputUser = await page.$('input[name="user"]');
     const inputPassword = await page.$('input[name="passwd"]');
+
     if (inputUser) {
         console.log('input fund')
     }
@@ -66,11 +67,11 @@ const fs = require('fs');
     // const buttonSave = await page.$('button[name="submit"]');
 
 
-    await inputUrl.type('https://i.imgur.com/J0x6KYo.png', { delay: 50 });
-    await inputTitle.type('test title', { delay: 50 });
-    await page.$eval('button[name="submit"]', el => el.click());
+    // await inputUrl.type('https://i.imgur.com/hXAn4un.jpg', { delay: 50 });
+    // await inputTitle.type('test title nene', { delay: 50 });
+    // await page.$eval('button[name="submit"]', el => el.click());
 
-    await page.waitForNavigation();
+    // await page.waitForNavigation();
 
     await page.screenshot({ path: 'captura4.png' });
 

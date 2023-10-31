@@ -2,13 +2,13 @@ const sharp = require('sharp');
 
 // Ruta de la imagen de entrada y salida
 
-const inputImagePath = __dirname + '/won.jpg';
-const outputImagePath = __dirname + '/ruta_de_la_imagen_de_salida.jpg';
+const inputImagePath = __dirname + '/1.jpg';
+const outputImagePath = __dirname + '/22.jpg';
 
 // crear la palabra que va en la imagen
 const width = 500;
 const height = 200;
-const text = "u/adolfogbztt";
+const text = "u/nene";
 
 const svgImage = `
 <svg width="${width}" height="${height}">

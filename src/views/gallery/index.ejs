@@ -1,0 +1,50 @@
+<%- include('../layouts/start.ejs',{title:"Gallery"}) %>
+
+<div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+  <div class="text-xl font-semibold inline-block">
+    Fotos y Videos
+    <div class="inline-block float-right">
+      <div class="inline-block float-right">
+        <a href="/usuarios/create" class="btn px-6 btn-sm normal-case btn-primary">
+          Agregar Nuevo(s)
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="divider mt-2"></div>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+    <div class="card bg-base-100 shadow-xl p-3">
+      <figure>
+        <img style="height: 200px; width: auto" src="/static/25-250587_gold-clock-wallpaper-hd.jpg" alt="Shoes" />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">Card title!</h2>
+        <p>If a dog chews shoes whose shoes does he choose?</p>
+          <p><div class="badge">default</div>
+          <div class="badge badge-neutral">neutral</div>
+          <div class="badge badge-primary">primary</div>
+          <div class="badge badge-secondary">secondary</div>
+          <div class="badge badge-accent">accent</div>
+          <div class="badge badge-ghost">ghost</div></p>
+
+        <div class="card-actions justify-end mt-2">
+          <button class="btn"><i class="fa fa-edit"></i></button>
+          <button class="btn"><i class="fa fa-trash"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  async function remove(id) {
+    st = confirm("Seguro de eliminar este registro?");
+    if (st) {
+      console.log(id);
+      await fetch(`/usuarios/${id}`, {
+        method: "DELETE",
+      });
+      location.reload();
+    }
+  }
+</script>
+<%- include('../layouts/end.ejs') %>
