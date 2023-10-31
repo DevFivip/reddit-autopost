@@ -28,5 +28,17 @@ module.exports = {
             }
 
         })
-    }
+    },
+    findOne(imagen_id) {
+        return new Promise((suc, rej) => {
+            db.all('SELECT * from gallery where id = '+ imagen_id, function (err, rows) {
+                if (err) {
+                    rej(err.message)
+                } else {
+                    suc(rows[0])
+                }
+            });
+        })
+    },
+    
 }

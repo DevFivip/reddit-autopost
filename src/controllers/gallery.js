@@ -13,5 +13,11 @@ module.exports = {
         console.log(newFileNames);
         await gallery.createMany(newFileNames);
         res.redirect('/gallery');
+    },
+    async show(req, res) {
+        const { imagen_id } = req.params;
+        const imagen = await gallery.findOne(imagen_id);
+        console.log(imagen)
+        res.render("gallery/show", { imagen });
     }
 };

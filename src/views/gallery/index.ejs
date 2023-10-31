@@ -17,7 +17,7 @@
     <% images.forEach(function(image) { %>
     <div class="card bg-base-100 shadow-xl p-3">
       <figure>
-        <img style="height: 200px; width: auto; border-radius: 8px" src="/files/<%=image.archivo_nombre%>" alt="<%=image.archivo_nombre%>" />
+        <img style="height: 150px; width: auto; border-radius: 8px" src="/files/<%=image.archivo_nombre%>" alt="<%=image.archivo_nombre%>" />
       </figure>
       <div class="card-body p-2">
 
@@ -30,8 +30,8 @@
         </div>
 
         <div class="card-actions justify-end mt-2">
-          <button class="btn"><i class="fa fa-edit"></i></button>
-          <button class="btn"><i class="fa fa-trash"></i></button>
+          <a href="/gallery/<%=image.id%>" class="btn btn-neutral"><i class="fa fa-edit"></i></a>
+          <button class="btn btn-neutral"><i class="fa fa-trash"></i></button>
         </div>
       </div>
     </div>

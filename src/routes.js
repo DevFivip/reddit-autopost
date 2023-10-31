@@ -51,6 +51,9 @@ router.post('/gallery', upload.array('fileInput'), (req, res) => {
     GalleryController.store(req, res);
     // res.redirect('/gallery');
 });
+router.get('/gallery/:imagen_id', (req, res) => {
+    GalleryController.show(req, res);
+});
 
 
 

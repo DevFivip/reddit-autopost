@@ -5,6 +5,7 @@ const routes = require("./routes");
 
 
 app.use('/files', express.static('files'))
+app.use('/node_modules', express.static('node_modules'));
 app.use(bodyParser.json());
 app.use(
   express.urlencoded({

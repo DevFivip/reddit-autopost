@@ -1,0 +1,71 @@
+<%- include('../layouts/start.ejs',{title:"Gallery"}) %>
+
+<style>
+  /* bright / dark mode */
+  .pintura-editor {
+    --color-background: 66, 255, 255;
+    --color-foreground: 00, 10, 10;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html {
+      color: #fff;
+      background: #111;
+    }
+
+    .pintura-editor {
+      --color-background: 0, 10, 10;
+      --color-foreground: 0, 255, 255;
+    }
+  }
+</style>
+<form
+  action="/gallery/<%imagen.id%>"
+  method="post"
+  enctype="multipart/form-data"
+>
+  <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+    <div class="text-xl font-semibold inline-block">
+      Fotos y Videos
+      <div class="inline-block float-right">
+        <div class="inline-block float-right">
+          <button type="submit" class="btn px-6 btn-sm normal-case btn-primary">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="divider mt-2"></div>
+
+    <label for="etiquetas">Etiquetas (separar por comas ",")</label>
+    <input
+      type="text"
+      id="etiquetas"
+      name="etiquetas"
+      class="input input-bordered w-full"
+    />
+
+    <div class="divider mt-2"></div>
+    <figure>
+      <img
+        style="height: 600px; width: auto; border-radius: 8px"
+        src="/files/<%=imagen.archivo_nombre%>"
+        alt="<%=imagen.archivo_nombre%>"
+      />
+    </figure>
+    <div class="divider mt-2"></div>
+    <div class="inline-block float-right">
+      <button type="button" class="btn px-6 btn-sm normal-case btn-error mt-4">
+        Eliminar
+      </button>
+      <button
+        type="submit"
+        class="btn px-6 btn-sm normal-case btn-primary mt-4"
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>
+
+<%- include('../layouts/end.ejs') %>
