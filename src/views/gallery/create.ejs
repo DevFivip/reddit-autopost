@@ -1,0 +1,74 @@
+<%- include('../layouts/start.ejs',{title:"Gallery"}) %>
+
+<form action="/gallery" method="post" enctype="multipart/form-data">
+  <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+    <div class="text-xl font-semibold inline-block">
+      Fotos y Videos
+      <div class="inline-block float-right">
+        <div class="inline-block float-right">
+          <button type="submit" class="btn px-6 btn-sm normal-case btn-primary">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="divider mt-2"></div>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-2">
+      <input type="file" id="fileInput" name="fileInput" class="file-input file-input-bordered file-input-lg w-full max-w-xs" multiple />
+    </div>
+    <div id="preview" class="grid grid-cols-2 md:grid-cols-3 gap-2"></div>
+
+    <div class="inline-block float-right">
+      <button type="submit" class="btn px-6 btn-sm normal-case btn-primary mt-4">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>
+
+<script>
+  const fileInput = document.getElementById("fileInput");
+  const preview = document.getElementById("preview");
+
+  fileInput.addEventListener("change", (e) => {
+    preview.innerHTML = "";
+
+    for (let i = 0; i < fileInput.files.length; i++) {
+      const file = fileInput.files[i];
+      const fileType = file.type;
+      const fileName = file.name;
+
+      const fileReader = new FileReader();
+
+      if (fileType.startsWith("image")) {
+        // Para imágenes
+        fileReader.onload = (event) => {
+          const img = document.createElement("img");
+          img.src = event.target.result;
+          img.title = fileName;
+          img.style = "height: 200px; width: auto; border-radius: 8px;";
+          preview.appendChild(img);
+        };
+      } else if (fileType.startsWith("video")) {
+        // Para videos
+        fileReader.onload = (event) => {
+          const video = document.createElement("video");
+          video.src = event.target.result;
+          video.title = fileName;
+          video.controls = true;
+          video.style = "height: 200px; width: auto; border-radius: 8px;";
+          preview.appendChild(video);
+        };
+      } else {
+        // Para otros tipos de archivo
+        const p = document.createElement("p");
+        p.textContent = `${fileName} (Tipo de archivo no compatible)`;
+        preview.appendChild(p);
+        continue;
+      }
+
+      fileReader.readAsDataURL(file);
+    }
+  });
+</script>
+<%- include('../layouts/end.ejs') %>

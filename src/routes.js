@@ -1,7 +1,19 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router(); // new instance of Router
 const UsuarioController = require('./controllers/usuario')
 const GalleryController = require('./controllers/gallery')
+const path = require('path');
+
+// Configurar Multer para manejar la carga de archivos
+const storage = multer.diskStorage({
+    destination: __dirname+'/../files/', // Carpeta donde se guardarán los archivos
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Renombrar archivo con marca de tiempo
+    }
+});
+
+const upload = multer({ storage });
 /* GET home page */
 router.get('/', (req, res) => {
     res.render('index', { mensaje: '¡Hola, EJS!' });
@@ -31,6 +43,13 @@ router.delete('/usuarios/:usuario_id', (req, res) => {
 
 router.get('/gallery', (req, res) => {
     GalleryController.index(req, res);
+});
+router.get('/gallery/create', (req, res) => {
+    GalleryController.create(req, res);
+});
+router.post('/gallery', upload.array('fileInput'), (req, res) => {
+    GalleryController.store(req, res);
+    // res.redirect('/gallery');
 });
 
 
