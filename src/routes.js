@@ -9,7 +9,7 @@ const path = require('path');
 
 // Configurar Multer para manejar la carga de archivos
 const storage = multer.diskStorage({
-    destination: __dirname+'/../files/', // Carpeta donde se guardarán los archivos
+    destination: __dirname + '/../files/', // Carpeta donde se guardarán los archivos
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname)); // Renombrar archivo con marca de tiempo
     }
@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 /* GET home page */
 router.get('/', (req, res) => {
-    res.render('index', { mensaje: '¡Hola, EJS!' });
+    res.redirect('/posts')
 });
 
 router.get('/usuarios', (req, res) => {
