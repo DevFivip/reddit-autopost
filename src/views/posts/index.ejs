@@ -60,6 +60,10 @@
               <button onclick="imgur(<%= post.id %>)" class="btn btn-square btn-ghost">
                 <i class="fa fa-image"></i>
               </button>
+             
+              <button onclick="reddit(<%= post.id %>)" class="btn btn-square btn-ghost">
+                <i class="fa-brands fa-reddit"></i>
+              </button>
 
 
             </td>
@@ -85,7 +89,14 @@
     await fetch(`/posts/imgur/${id}`, {
       method: 'POST'
     });
-   location.reload()
+    location.reload()
+  }
+  async function reddit(id) {
+    const res = await fetch(`/posts/reddit/${id}`, {
+      method: 'POST'
+    });
+    console.log(res)
+    //  location.reload()
   }
 </script>
 <%- include('../layouts/end.ejs') %>

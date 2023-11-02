@@ -81,4 +81,18 @@ module.exports = {
             });
         })
     },
+    updateStatus(status, post_id) {
+        return new Promise((suc, rej) => {
+            db.serialize(function () {
+                try {
+                    const stmt = db.prepare(`UPDATE post set  status = ? where id = ?`);
+                    stmt.run(status, post_id);
+                    stmt.finalize();
+                    suc(true);
+                } catch (error) {
+                    rej(error)
+                }
+            });
+        })
+    },
 }

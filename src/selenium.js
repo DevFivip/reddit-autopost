@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+
 (async () => {
     const browser = await puppeteer.launch({ headless: false }); // Abre un nuevo navegador
     const page = await browser.newPage(); // Abre una nueva página
@@ -55,7 +56,6 @@ const fs = require('fs');
     await page.screenshot({ path: 'captura3.png' });
 
     await Promise.all([
-
         page.goto('https://old.reddit.com/r/bottest/submit')
         // page.click('button')
     ]);

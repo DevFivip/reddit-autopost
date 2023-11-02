@@ -4,6 +4,7 @@ const subreddit = require("../model/subreddit");
 const usuario = require("../model/usuario");
 const { setFecha } = require("../util/date");
 const imgur = require("../util/imgur");
+const { uploadToReddit } = require("../util/reddit");
 const watermark = require("../util/watermark");
 
 module.exports = {
@@ -61,7 +62,26 @@ module.exports = {
             // console.log(file);
             const link = await imgur.send(file);
             // console.log(link)
-            await post.updateLinkImgur(link, file,_post.id);
+            await post.updateLinkImgur(link, file, _post.id);
+        }
+
+        res.send('success');
+    },
+
+    async reddit(req, res) {
+
+        const { post_id } = req.params;
+        const _post = await post.findOne(post_id);
+        const _usuario = await usuario.find(_post.usuario_id);
+
+        if (_post.status != 2) {
+            const status = await uploadToReddit(_post, _usuario);
+            console.log({status})
+            if (status) {
+                await post.updateStatus(2, _post.id);
+            }
+        }else{
+            console.log('ya enviado')
         }
 
         res.send('success');

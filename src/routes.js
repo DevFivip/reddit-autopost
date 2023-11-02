@@ -109,6 +109,9 @@ router.delete('/posts/:post_id', (req, res) => {
 router.post('/posts/imgur/:post_id', (req, res) => {
     PostController.imgur(req, res);
 });
+router.post('/posts/reddit/:post_id', (req, res) => {
+    PostController.reddit(req, res);
+});
 
 
 module.exports = router; // You export the intance
