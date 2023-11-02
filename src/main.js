@@ -2,7 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const routes = require("./routes");
+const { init } = require("./cron");
 
+// start corn job
+init()
 
 app.use('/files', express.static('files'))
 app.use('/node_modules', express.static('node_modules'));

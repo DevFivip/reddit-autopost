@@ -1,4 +1,5 @@
 const db = require('../database/conection');
+const { obtenerFechaActual, setFecha } = require('../util/date');
 module.exports = {
     all() {
         return new Promise((suc, rej) => {
@@ -6,7 +7,6 @@ module.exports = {
                 if (err) {
                     rej(err.message)
                 } else {
-                    console.log(rows)
                     suc(rows)
                 }
             });
@@ -14,11 +14,12 @@ module.exports = {
     },
     create(data) {
         const { titulo, descripcion, usuario_id, subreddits, fecha_programada, file_dir } = data;
+        const _fecha_programada = setFecha(fecha_programada);
         return new Promise((suc, rej) => {
             db.serialize(function () {
                 try {
                     const stmt = db.prepare("INSERT INTO post (titulo, descripcion, usuario_id,subreddits,fecha_programada,file_dir,status) VALUES (?,?,?,?,?,?,1)");
-                    stmt.run(titulo, descripcion, usuario_id, subreddits, fecha_programada, file_dir);
+                    stmt.run(titulo, descripcion, usuario_id, subreddits, _fecha_programada, file_dir);
                     stmt.finalize();
                     suc(data);
                 } catch (error) {
@@ -54,11 +55,12 @@ module.exports = {
     },
     update(data, post_id) {
         const { titulo, descripcion, usuario_id, subreddits, fecha_programada, file_dir } = data;
+        const _fecha_programada = setFecha(fecha_programada);
         return new Promise((suc, rej) => {
             db.serialize(function () {
                 try {
                     const stmt = db.prepare(`UPDATE post set titulo = ?, descripcion = ?, usuario_id = ?,subreddits = ?,fecha_programada = ?,file_dir = ? where id = ?`);
-                    stmt.run(titulo, descripcion, usuario_id, subreddits, fecha_programada, file_dir, post_id);
+                    stmt.run(titulo, descripcion, usuario_id, subreddits, _fecha_programada, file_dir, post_id);
                     stmt.finalize();
                     suc(data);
                 } catch (error) {
@@ -91,6 +93,18 @@ module.exports = {
                     suc(true);
                 } catch (error) {
                     rej(error)
+                }
+            });
+        })
+    },
+    getComming() {
+        return new Promise((suc, rej) => {
+            const fecha = obtenerFechaActual();
+            db.all(`SELECT * FROM post WHERE datetime(fecha_programada) < datetime('${fecha}') AND status = 1`, function (err, rows) {
+                if (err) {
+                    rej(err.message)
+                } else {
+                    suc(rows[0]);
                 }
             });
         })

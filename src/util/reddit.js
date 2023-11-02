@@ -6,16 +6,14 @@ module.exports = {
     uploadToReddit(post, user) {
         return new Promise(async (suc, rej) => {
             try {
-
-
-                const directorio1 = path.join(__dirname, '../../files/logs/');// Reemplaza 'nombre_del_directorio' con el nombre de tu directorio
+                const directorio1 = path.join(__dirname, '../../files/logs/'); // Reemplaza 'nombre_del_directorio' con el nombre de tu directorio
                 // Comprueba si el directorio existe
                 if (!fs.existsSync(directorio1)) {
                     // Si no existe, crea el directorio1
                     fs.mkdirSync(directorio1);
-                    console.log(`directorio1 '${directorio1}' creado.`);
+                    // console.log(`directorio1 '${directorio1}' creado.`);
                 } else {
-                    console.log(`El directorio1 '${directorio1}' ya existe.`);
+                    // console.log(`El directorio1 '${directorio1}' ya existe.`);
                 }
 
                 const directorio = path.join(__dirname, '../../files/logs/' + post.id);// Reemplaza 'nombre_del_directorio' con el nombre de tu directorio
@@ -23,10 +21,7 @@ module.exports = {
                 if (!fs.existsSync(directorio)) {
                     // Si no existe, crea el directorio
                     fs.mkdirSync(directorio);
-                    console.log(`Directorio '${directorio}' creado.`);
-                } else {
-                    console.log(`El directorio '${directorio}' ya existe.`);
-                }
+                } 
 
                 const browser = await puppeteer.launch({ headless: false }); // Abre un nuevo navegador
                 const page = await browser.newPage(); // Abre una nueva página
@@ -49,13 +44,6 @@ module.exports = {
                 const inputUser = await page.$('input[name="user"]');
                 const inputPassword = await page.$('input[name="passwd"]');
 
-                // if (inputUser) {
-                //     console.log('input fund')
-                // }
-                // if (inputPassword) {
-                //     console.log('input fund')
-                // }
-
                 await inputUser.type(user.reddit_name, { delay: 50 });
                 await inputPassword.type(user.reddit_password, { delay: 50 });
 
@@ -65,12 +53,6 @@ module.exports = {
 
                 await page.keyboard.press('Enter');
 
-                // if (inputUser) {
-                //     // Escribe el valor en el campo de entrada
-
-                // } else {
-                //     console.log('Campo de entrada no encontrado');
-                // }
 
                 await page.screenshot({ path: directorio + '/captura2.png' });
                 // Hacer clic en el botón "Iniciar sesión" por su texto
@@ -79,13 +61,13 @@ module.exports = {
                 // Puedes ajustar el selector CSS según la estructura HTML de tu página
 
                 // Esperar a que la página termine de cargar (puede ser opcional)
-                await page.waitForNavigation();
+                // await page.waitForNavigation();
+                await page.waitForSelector('.userkarma');
 
                 await page.screenshot({ path: directorio + '/captura3.png' });
 
                 await Promise.all([
                     page.goto(`https://old.reddit.com/${post.subreddits}/submit`)
-                    // page.click('button')
                 ]);
 
                 await page.screenshot({ path: directorio + '/captura4.png' });
@@ -106,9 +88,10 @@ module.exports = {
                 await browser.close();
 
                 suc(true)
-            } catch (error) {
-                console.log(error)
-                rej(false);
+            } catch (e) {
+                console.log(e)
+                rej(false)
+                return false
             }
         })
     }

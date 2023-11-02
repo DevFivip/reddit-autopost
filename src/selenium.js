@@ -45,6 +45,8 @@ const fs = require('fs');
     // }
 
     await page.screenshot({ path: 'captura2.png' });
+
+    await page.waitForSelector('.userkarma');
     // Hacer clic en el botón "Iniciar sesión" por su texto
     // await page.click('button[type="submit"]');
 

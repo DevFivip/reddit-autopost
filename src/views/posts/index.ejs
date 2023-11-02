@@ -43,7 +43,27 @@
             <td><%= post.nombre %></td>
             <td><%= post.subreddits %></td>
             <td>
-              <%- post.status == 1 ? '<div class="badge badge-primary">Activo</div>':'<div class="badge badge">Desactivado</div>' %>
+              <% switch (post.status) {
+                case 1: %>
+                <div class="badge badge-primary">Por Publicar</div>
+              <% break;
+                case 2: %>
+                <div class="badge badge-success">Publicado Correctamente</div>
+              <% break;
+                case 3: %>
+                <div class="badge badge">Error Desconocido</div>
+              <% break;
+                case 0: %>
+                <div class="badge badge-error">Desactivado</div>
+              <% break;
+                case 4: %>
+                <div class="badge badge-error">Error al Publicar</div>
+              <% break;
+                case 5: %>
+                <div class="badge badge-warning ">Proceso activo de publicación</div>
+              <% break;
+                default:
+                break; } %>
             </td>
             <td>
               <a href="<%= post.file_url %>" target="_blank"><%= post.file_url %></a>
@@ -64,7 +84,6 @@
               <button onclick="reddit(<%= post.id %>)" class="btn btn-square btn-ghost">
                 <i class="fa-brands fa-reddit"></i>
               </button>
-
 
             </td>
           </tr>

@@ -12,7 +12,6 @@ const fs = require('fs');
 module.exports = {
     async index(req, res) {
         const posts = await post.all();
-        console.log(posts);
         res.render("posts/index", { posts });
     },
     async create(req, res) {
