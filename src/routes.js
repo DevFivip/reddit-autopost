@@ -93,6 +93,9 @@ router.get('/posts', (req, res) => {
 router.get('/posts/create', (req, res) => {
     PostController.create(req, res);
 });
+router.post('/posts', (req, res) => {
+    PostController.store(req, res);
+});
 
 
 module.exports = router; // You export the intance

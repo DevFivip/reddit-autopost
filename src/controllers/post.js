@@ -14,5 +14,12 @@ module.exports = {
         const subreddits = await subreddit.actives();
         const gallerys = await gallery.all();
         res.render("posts/create", { usuarios, subreddits, gallerys });
+    },
+    async store(req, res) {
+        console.log(req.body);
+        // const usuarios = await usuario.actives();
+        // const subreddits = await subreddit.actives();
+        // const gallerys = await gallery.all();
+        // res.render("posts/create", { usuarios, subreddits, gallerys });
     }
 }

@@ -1,6 +1,6 @@
 <%- include('../layouts/start.ejs',{title:"Posts"}) %>
 
-<form action="/post" method="post" enctype="multipart/form-data">
+<form action="/posts" method="post" enctype="form-data">
   <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
     <div class="text-xl font-semibold inline-block">
       Nuevo Post
@@ -15,16 +15,16 @@
     <div class="divider mt-2"></div>
 
     <div class="form-control w-full mt-4">
-      <label class="label"><span class="label-text text-base-content">Titulo</span></label><input type="text" name="nombre" placeholder="" class="input input-bordered w-full" value="" />
+      <label class="label"><span class="label-text text-base-content">Titulo</span></label><input type="text" name="titulo" placeholder="" class="input input-bordered w-full" value="" />
     </div>
 
     <div class="form-control w-full mt-4">
-      <label class="label"><span class="label-text text-base-content">Descripción</span></label><input type="text" name="reddit_name" placeholder="" class="input input-bordered w-full" value="" />
+      <label class="label"><span class="label-text text-base-content">Descripción</span></label><input type="text" name="descripcion" placeholder="" class="input input-bordered w-full" value="" />
     </div>
 
     <div class="form-control w-full mt-4">
       <label class="label"><span class="label-text text-base-content">Seleccionar Usuario</span></label>
-      <select id="selectElement" class="select">
+      <select id="selectElement" name="usuario_id" class="select">
         <% usuarios.forEach(function(usuario) { %>
         <option value="<%=usuario.id %>"><%= usuario.nombre%></option>
         <% }); %>
@@ -33,7 +33,7 @@
 
     <div class="form-control w-full mt-4">
       <label class="label"><span class="label-text text-base-content">Seleccionar Subreddit</span></label>
-      <select id="selectSubreddit" class="select">
+      <select id="selectSubreddit" name="subreddits" class="select">
         <% subreddits.forEach(function(subreddit) { %>
         <option value="<%=subreddit.id %>">
           <%= subreddit.nombre%> || <%=subreddit.tags%>
@@ -48,7 +48,7 @@
 
     <div class="form-control w-full mt-4">
       <label class="label"><span class="label-text text-base-content">Buscar Imagen</span></label>
-      <input type="text" id="searchInput" class="input input-bordered w-full focus:outline-none focus:ring focus:border-grey-600" placeholder="Buscar Imagen por Tag" />
+      <input type="text" id="searchInput" name="file_dir" class="input input-bordered w-full focus:outline-none focus:ring focus:border-grey-600" placeholder="Buscar Imagen por Tag" />
       <!-- <input type="text" id="searchInput" class="" placeholder="Buscar productos" /> -->
       <div id="searchResults" class="mt-4"></div>
     </div>
