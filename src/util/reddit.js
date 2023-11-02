@@ -6,6 +6,18 @@ module.exports = {
     uploadToReddit(post, user) {
         return new Promise(async (suc, rej) => {
             try {
+
+
+                const directorio1 = path.join(__dirname, '../../files/logs/');// Reemplaza 'nombre_del_directorio' con el nombre de tu directorio
+                // Comprueba si el directorio existe
+                if (!fs.existsSync(directorio1)) {
+                    // Si no existe, crea el directorio1
+                    fs.mkdirSync(directorio1);
+                    console.log(`directorio1 '${directorio1}' creado.`);
+                } else {
+                    console.log(`El directorio1 '${directorio1}' ya existe.`);
+                }
+
                 const directorio = path.join(__dirname, '../../files/logs/' + post.id);// Reemplaza 'nombre_del_directorio' con el nombre de tu directorio
                 // Comprueba si el directorio existe
                 if (!fs.existsSync(directorio)) {

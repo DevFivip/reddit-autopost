@@ -25,9 +25,11 @@
     <div class="form-control w-full mt-4">
       <label class="label"><span class="label-text text-base-content">Seleccionar Usuario</span></label>
       <select id="selectElement" name="usuario_id" class="select">
-        <option value="<%=usuarioSelected.id %>"> <%=usuarioSelected.nombre%> </option>
+        <option value="<%=usuarioSelected.id %>">
+          <%=usuarioSelected.nombre%>
+        </option>
         <% usuarios.forEach(function(usuario) { %>
-        <option value="<%=usuario.id %>"> <%=usuario.nombre%> </option>
+        <option value="<%=usuario.id %>"><%=usuario.nombre%></option>
         <% }); %>
       </select>
     </div>
@@ -35,7 +37,6 @@
     <div class="form-control w-full mt-4">
       <label class="label"><span class="label-text text-base-content">Seleccionar Subreddit</span></label>
       <select id="selectSubreddit" name="subreddits" class="select">
-
         <option value="<%=_post.subreddits %>" selected>
           <%= _post.subreddits%>
         </option>
@@ -58,6 +59,30 @@
       <!-- <input type="text" id="searchInput" class="" placeholder="Buscar productos" /> -->
       <div id="searchResults" class="mt-4"></div>
     </div>
+
+    <div class="divider mt-2"></div>
+    <h3>Imagen Seleccionada</h3>
+    <figure>
+      <img style="height: 600px; width: auto; border-radius: 8px" src="<%=_post.file_dir%>" alt="<%=_post.file_dir%>" />
+    </figure>
+
+    <div class="divider mt-2"></div>
+    <h3>Log de envio a Reddit</h3>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+
+
+      <% logsList?.forEach(function(captura) { %>
+      <figure>
+        <img style="height: 150px; width: auto; border-radius: 8px" src="/files/logs/<%=_post.id%>/<%=captura%>" />
+      </figure>
+      <% }); %>
+
+    </div>
+
+
+
+
 
     <div class="inline-block float-right">
       <button type="submit" class="btn px-6 btn-sm normal-case btn-primary mt-4">

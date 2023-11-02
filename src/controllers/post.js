@@ -6,6 +6,8 @@ const { setFecha } = require("../util/date");
 const imgur = require("../util/imgur");
 const { uploadToReddit } = require("../util/reddit");
 const watermark = require("../util/watermark");
+const path = require('path');
+const fs = require('fs');
 
 module.exports = {
     async index(req, res) {
@@ -43,7 +45,17 @@ module.exports = {
         const subreddits = await subreddit.actives();
         const gallerys = await gallery.all();
         const usuarioSelected = await usuario.find(_post.usuario_id)
-        res.render("posts/show", { _post, usuarios, subreddits, gallerys, _fecha, usuarioSelected });
+        let logsList = [];
+
+        const directorio = path.join(__dirname, '../../files/logs/' + _post.id);// Reemplaza 'nombre_del_directorio' con el nombre de tu directorio
+        // Comprueba si el directorio existe
+        if (!fs.existsSync(directorio)) {
+
+        } else {
+            logsList = fs.readdirSync(directorio);
+        }
+
+        res.render("posts/show", { _post, usuarios, subreddits, gallerys, _fecha, usuarioSelected, logsList });
     },
     async update(req, res) {
         const { post_id } = req.params;
@@ -76,11 +88,11 @@ module.exports = {
 
         if (_post.status != 2) {
             const status = await uploadToReddit(_post, _usuario);
-            console.log({status})
+            console.log({ status })
             if (status) {
                 await post.updateStatus(2, _post.id);
             }
-        }else{
+        } else {
             console.log('ya enviado')
         }
 
