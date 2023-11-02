@@ -2,6 +2,7 @@ const gallery = require("../model/gallery");
 const post = require("../model/post");
 const subreddit = require("../model/subreddit");
 const usuario = require("../model/usuario");
+const { setFecha } = require("../util/date");
 
 module.exports = {
     async index(req, res) {
@@ -15,11 +16,35 @@ module.exports = {
         const gallerys = await gallery.all();
         res.render("posts/create", { usuarios, subreddits, gallerys });
     },
+    async create(req, res) {
+        const usuarios = await usuario.actives();
+        const subreddits = await subreddit.actives();
+        const gallerys = await gallery.all();
+        res.render("posts/show", {usuarios, subreddits, gallerys });
+    },
     async store(req, res) {
         console.log(req.body);
-        // const usuarios = await usuario.actives();
-        // const subreddits = await subreddit.actives();
-        // const gallerys = await gallery.all();
-        // res.render("posts/create", { usuarios, subreddits, gallerys });
-    }
+        await post.create(req.body);
+        res.redirect('/posts');
+    },
+    async remove(req, res) {
+        const { post_id } = req.params
+        await post.delete(post_id);
+        res.redirect('/posts');
+    },
+    async show(req, res) {
+        const { post_id } = req.params;
+        const _post = await post.findOne(post_id);
+        const _fecha = setFecha(_post.fecha_programada);
+        const usuarios = await usuario.actives();
+        const subreddits = await subreddit.actives();
+        const gallerys = await gallery.all();
+        const usuarioSelected = await usuario.find(_post.usuario_id)
+        res.render("posts/show", { _post,usuarios, subreddits, gallerys, _fecha,usuarioSelected });
+    },
+    async update(req, res) {
+        const { post_id } = req.params;
+        await post.update(req.body, post_id);
+        res.redirect('/posts');
+    },
 }

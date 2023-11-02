@@ -17,9 +17,9 @@
       <table class="table w-full">
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>Reddit User</th>
-            <th>Redit Password</th>
+            <th>Post</th>
+            <th>Usuario</th>
+            <th>Subreddit</th>
             <th>Status</th>
             <th></th>
           </tr>
@@ -29,31 +29,29 @@
           <tr>
             <td>
               <div class="flex items-center space-x-3">
-                <div class="avatar">11
-                  <div class="mask mask-squircle w-12 h-12"><img src="https://reqres.in/img/faces/7-image.jpg" alt="Avatar"></div>
+                <div class="avatar">
+                  <div class="mask mask-squircle w-12 h-12"><img src="<%= post.file_dir %>" alt="Avatar"></div>
                 </div>
                 <div>
-                  <div class="font-bold">Michael</div>
-                  <div class="text-sm opacity-50">Lawson</div>
+                  <div class="font-bold"><%= post.titulo %></div>
+                  <div class=""><%= post.descripcion %></div>
                 </div>
               </div>
             </td>
 
             <td><%= post.nombre %></td>
-            <td><%= post.reddit_name %></td>
-            <td><%= post.reddit_password %></td>
+            <td><%= post.subreddits %></td>
             <td>
               <%- post.status == 1 ? '<div class="badge badge-primary">Activo</div>':'<div class="badge badge">Desactivado</div>' %>
             </td>
             <td>
-              <a href="/usuarios/<%= post.id %>" class="btn btn-square btn-ghost">
+              <a href="/posts/<%= post.id %>" class="btn btn-square btn-ghost">
                 <i class="fa fa-edit"></i>
               </a>
               <button onclick="remove(<%= post.id %>)" class="btn btn-square btn-ghost">
                 <i class="fa fa-trash"></i>
               </button>
-
-              <a href="/usuarios/status/<%= post.id %>" class="btn btn-square btn-ghost">
+              <a href="/posts/status/<%= post.id %>" class="btn btn-square btn-ghost">
                 <%- post.status == 1 ? '<i class="fa fa-circle"></i>':'<i class="fa fa-circle-check"></i>' %>
               </a>
             </td>
@@ -66,10 +64,10 @@
 </div>
 <script>
   async function remove(id) {
-    st = confirm('Seguro de eliminar este registro?');
+    st = confirm('Seguro de eliminar este post?');
     if (st) {
       console.log(id)
-      await fetch(`/usuarios/${id}`, {
+      await fetch(`/posts/${id}`, {
         method: 'DELETE'
       });
       location.reload()

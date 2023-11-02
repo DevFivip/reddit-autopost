@@ -96,6 +96,15 @@ router.get('/posts/create', (req, res) => {
 router.post('/posts', (req, res) => {
     PostController.store(req, res);
 });
+router.get('/posts/:post_id', (req, res) => {
+    PostController.show(req, res);
+});
+router.post('/posts/:post_id', (req, res) => {
+    PostController.update(req, res);
+});
+router.delete('/posts/:post_id', (req, res) => {
+    PostController.remove(req, res);
+});
 
 
 module.exports = router; // You export the intance
