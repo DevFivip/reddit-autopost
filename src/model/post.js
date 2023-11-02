@@ -67,4 +67,18 @@ module.exports = {
             });
         })
     },
+    updateLinkImgur(link, file, post_id) {
+        return new Promise((suc, rej) => {
+            db.serialize(function () {
+                try {
+                    const stmt = db.prepare(`UPDATE post set file_url = ?, file_dir = ? where id = ?`);
+                    stmt.run(link, file, post_id);
+                    stmt.finalize();
+                    suc(link);
+                } catch (error) {
+                    rej(error)
+                }
+            });
+        })
+    },
 }

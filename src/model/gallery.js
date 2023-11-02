@@ -14,16 +14,17 @@ module.exports = {
         })
     },
     createMany(fileNames) {
+        console.log(fileNames)
         return new Promise((suc, rej) => {
             try {
                 const stmt = db.prepare("INSERT INTO gallery (archivo_nombre,fecha_subida) VALUES (?,?)");
                 fileNames.forEach(name => {
-                    console.log(date());
-                    stmt.run(name, date());
+                    stmt.run(name, date.obtenerFechaActual());
                 });
                 stmt.finalize();
                 suc(true)
             } catch (error) {
+                console.log(error)
                 rej(false)
             }
 

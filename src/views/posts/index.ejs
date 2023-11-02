@@ -21,6 +21,7 @@
             <th>Usuario</th>
             <th>Subreddit</th>
             <th>Status</th>
+            <th>Imgur Url</th>
             <th></th>
           </tr>
         </thead>
@@ -45,15 +46,22 @@
               <%- post.status == 1 ? '<div class="badge badge-primary">Activo</div>':'<div class="badge badge">Desactivado</div>' %>
             </td>
             <td>
+              <a href="<%= post.file_url %>" target="_blank"><%= post.file_url %></a>
+            </td>
+            <td>
               <a href="/posts/<%= post.id %>" class="btn btn-square btn-ghost">
                 <i class="fa fa-edit"></i>
               </a>
+
               <button onclick="remove(<%= post.id %>)" class="btn btn-square btn-ghost">
                 <i class="fa fa-trash"></i>
               </button>
-              <a href="/posts/status/<%= post.id %>" class="btn btn-square btn-ghost">
-                <%- post.status == 1 ? '<i class="fa fa-circle"></i>':'<i class="fa fa-circle-check"></i>' %>
-              </a>
+
+              <button onclick="imgur(<%= post.id %>)" class="btn btn-square btn-ghost">
+                <i class="fa fa-image"></i>
+              </button>
+
+
             </td>
           </tr>
           <% }); %>
@@ -72,6 +80,12 @@
       });
       location.reload()
     }
+  }
+  async function imgur(id) {
+    await fetch(`/posts/imgur/${id}`, {
+      method: 'POST'
+    });
+   location.reload()
   }
 </script>
 <%- include('../layouts/end.ejs') %>
