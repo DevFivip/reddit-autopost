@@ -1,0 +1,134 @@
+<%- include('../layouts/start.ejs',{title:"Posts"}) %>
+
+<form action="/post" method="post" enctype="multipart/form-data">
+  <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+    <div class="text-xl font-semibold inline-block">
+      Nuevo Post
+      <div class="inline-block float-right">
+        <div class="inline-block float-right">
+          <button type="submit" class="btn px-6 btn-sm normal-case btn-primary">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="divider mt-2"></div>
+
+    <div class="form-control w-full mt-4">
+      <label class="label"><span class="label-text text-base-content">Titulo</span></label><input type="text" name="nombre" placeholder="" class="input input-bordered w-full" value="" />
+    </div>
+
+    <div class="form-control w-full mt-4">
+      <label class="label"><span class="label-text text-base-content">Descripción</span></label><input type="text" name="reddit_name" placeholder="" class="input input-bordered w-full" value="" />
+    </div>
+
+    <div class="form-control w-full mt-4">
+      <label class="label"><span class="label-text text-base-content">Seleccionar Usuario</span></label>
+      <select id="selectElement" class="select">
+        <% usuarios.forEach(function(usuario) { %>
+        <option value="<%=usuario.id %>"><%= usuario.nombre%></option>
+        <% }); %>
+      </select>
+    </div>
+
+    <div class="form-control w-full mt-4">
+      <label class="label"><span class="label-text text-base-content">Seleccionar Subreddit</span></label>
+      <select id="selectSubreddit" class="select">
+        <% subreddits.forEach(function(subreddit) { %>
+        <option value="<%=subreddit.id %>">
+          <%= subreddit.nombre%> || <%=subreddit.tags%>
+        </option>
+        <% }); %>
+      </select>
+    </div>
+
+    <div class="form-control w-full mt-4">
+      <label class="label"><span class="label-text text-base-content">Fecha y Hora para Publicar</span></label><input type="datetime-local" name="fecha_programada" placeholder="" class="input input-bordered w-full" value="" />
+    </div>
+
+    <div class="form-control w-full mt-4">
+      <label class="label"><span class="label-text text-base-content">Buscar Imagen</span></label>
+      <input type="text" id="searchInput" class="input input-bordered w-full focus:outline-none focus:ring focus:border-grey-600" placeholder="Buscar Imagen por Tag" />
+      <!-- <input type="text" id="searchInput" class="" placeholder="Buscar productos" /> -->
+      <div id="searchResults" class="mt-4"></div>
+    </div>
+
+    <div class="inline-block float-right">
+      <button type="submit" class="btn px-6 btn-sm normal-case btn-primary mt-4">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>
+
+<script>
+  // Simulación de datos de productos (puedes cargar datos reales desde una API)
+  const products = <%-JSON.stringify(gallerys) %>;
+
+  const searchInput = document.getElementById("searchInput");
+  const searchResults = document.getElementById("searchResults");
+  let selectedProduct = null;
+  let filteredProducts;
+  // Función para mostrar los resultados de búsqueda
+  function displayResults(query) {
+
+    if (query === '') {
+      filteredProducts = products;
+    } else {
+      filteredProducts = products.filter(product => product?.tags?.toLowerCase().includes(query.toLowerCase()));
+    }
+
+    searchResults.innerHTML = "";
+    filteredProducts.forEach(product => {
+      const resultItem = document.createElement("div");
+      resultItem.classList.add("flex", "items-center", "mb-4", 'rounded-lg');
+      resultItem.innerHTML = `
+                  <img src="/files/${product.archivo_nombre}" alt="${product.tags}" class="w-16 h-16 mr-4 rounded-lg">
+                  <div>
+                      <h2 class="text-lg font-semibold">${product.tags}</h2>
+                  </div>
+              `;
+      // Agregar un evento de clic al elemento del producto para seleccionarlo
+      resultItem.addEventListener("click", () => {
+        selectProduct(resultItem);
+      });
+
+      searchResults.appendChild(resultItem);
+    });
+  }
+
+  // Función para seleccionar un producto
+  function selectProduct(product) {
+    if (selectedProduct) {
+      // Deseleccionar el producto previamente seleccionado
+      selectedProduct.classList.remove("bg-gray-900", "shadow");
+    }
+
+    selectedProduct = product;
+    // Aplicar un estilo visual al producto seleccionado
+    selectedProduct.classList.add("bg-gray-900", "shadow");
+
+    // Busca la imagen dentro del elemento div
+    const imgElement = product.querySelector('img');
+
+    // Obtén el valor del atributo src de la imagen
+    const srcValue = imgElement.getAttribute('src');
+    searchInput.value = srcValue;
+  }
+
+  // Escuchar eventos de entrada en el campo de búsqueda
+  searchInput.addEventListener("input", (event) => {
+    const query = event.target.value;
+    displayResults(query);
+  });
+
+  new SlimSelect({
+    select: '#selectElement'
+  })
+
+  new SlimSelect({
+    select: '#selectSubreddit'
+  })
+</script>
+
+<%- include('../layouts/end.ejs') %>

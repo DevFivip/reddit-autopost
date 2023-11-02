@@ -11,6 +11,17 @@ module.exports = {
             });
         })
     },
+    actives() {
+        return new Promise((suc, rej) => {
+            db.all('SELECT * from subreddit where status = 1', function (err, rows) {
+                if (err) {
+                    rej(err.message)
+                } else {
+                    suc(rows)
+                }
+            });
+        })
+    },
     create(data) {
         const { nombre, tags, verificacion } = data;
         const v = verificacion == 'on' ? 1 : 0;

@@ -15,19 +15,19 @@ db.serialize(function () {
     )`);
 });
 
-db.serialize(function () {
-    db.run(`CREATE TABLE IF NOT EXISTS posts (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        titulo TEXT,
-        imagen_name TEXT,
-        imagen_link_imgur TEXT,
-        contenido TEXT,
-        usuario_id INTEGER,
-        fecha_creacion DATETIME,
-        fecha_publicacion DATETIME,
-        status INT,
-        FOREIGN KEY(usuario_id) REFERENCES usuarios(id))`);
-});
+// db.serialize(function () {
+//     db.run(`CREATE TABLE IF NOT EXISTS posts (
+//         id INTEGER PRIMARY KEY AUTOINCREMENT,
+//         titulo TEXT,
+//         imagen_name TEXT,
+//         imagen_link_imgur TEXT,
+//         contenido TEXT,
+//         usuario_id INTEGER,
+//         fecha_creacion DATETIME,
+//         fecha_publicacion DATETIME,
+//         status INT,
+//         FOREIGN KEY(usuario_id) REFERENCES usuarios(id))`);
+// });
 
 db.serialize(function () {
     db.run(`CREATE TABLE  IF NOT EXISTS gallery (
@@ -46,6 +46,22 @@ db.serialize(function () {
         tags TEXT,
         status INTEGER,
         fecha_subida DATETIME DEFAULT CURRENT_TIMESTAMP
+    );`);
+});
+
+db.serialize(function () {
+    db.run(`CREATE TABLE  IF NOT EXISTS post (
+        id INTEGER PRIMARY KEY,
+        titulo TEXT NOT NULL,
+        descripcion TEXT,
+        file_url TEXT,
+        file_dir TEXT,
+        subreddits TEXT,
+        status INTEGER,
+        usuario_id INTEGER,
+        fecha_programada DATETIME,
+        fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY(usuario_id) REFERENCES usuarios(id)
     );`);
 });
 

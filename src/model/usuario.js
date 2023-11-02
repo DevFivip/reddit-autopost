@@ -11,6 +11,17 @@ module.exports = {
             });
         })
     },
+    actives() {
+        return new Promise((suc, rej) => {
+            db.all('SELECT * from usuarios where status = 1', function (err, rows) {
+                if (err) {
+                    rej(err.message)
+                } else {
+                    suc(rows)
+                }
+            });
+        })
+    },
     create(data) {
         const { nombre, reddit_name, reddit_password } = data;
         return new Promise((suc, rej) => {

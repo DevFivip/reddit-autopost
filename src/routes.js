@@ -4,6 +4,7 @@ const router = express.Router(); // new instance of Router
 const UsuarioController = require('./controllers/usuario')
 const GalleryController = require('./controllers/gallery')
 const SubredditController = require('./controllers/subreddit')
+const PostController = require('./controllers/post')
 const path = require('path');
 
 // Configurar Multer para manejar la carga de archivos
@@ -84,6 +85,13 @@ router.get('/subreddit/status/:subreddit_id', (req, res) => {
 });
 router.delete('/subreddit/:subreddit_id', (req, res) => {
     SubredditController.remove(req, res);
+});
+
+router.get('/posts', (req, res) => {
+    PostController.index(req, res);
+});
+router.get('/posts/create', (req, res) => {
+    PostController.create(req, res);
 });
 
 
